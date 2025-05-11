@@ -1,16 +1,17 @@
 #include <Arduino.h>
+#include "TempHumiditySensor.hpp"
+#include "SoilMoisture.hpp"
 
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  Serial.begin(9600);
+  delay(1000);  // Aguarda inicialização da serial
+
+  analogSetAttenuation(ADC_11db);  // set the ADC attenuation to 11 dB (up to ~3.3V input
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
+  ReadMoisture();
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+
 }
