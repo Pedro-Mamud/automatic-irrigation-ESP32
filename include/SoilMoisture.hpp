@@ -3,31 +3,31 @@
 
 #include <Arduino.h>
 
-#define SOIL_SENSOR_PIN 3 
-#define THRESHOLD 123 // @TODO Change this during calibration
+#define SOIL_SENSOR_PIN 4 //D4
+#define THRESHOLD 2000 // @TODO Change this during calibration
 
-#define DRY_THRESHOLD 3500
-#define WET_THRESHOLD 1200
+int sensorValue = 0;
 
-
-int percent = 0;
 
 int ReadMoisture() {
-  int sensorValue = analogRead(SOIL_SENSOR_PIN);  // Lê valor de 0 a 4095 no ESP32
-  
-  if (sensorValue > THRESHOLD) {
-    Serial.println("solo está molhado");
-  } else {
-    Serial.println("solo sec");
-  }
-  // ideal seria 4095 = seco e 0 = molhado, But, devemos calibrar o sistema
+  sensorValue = analogRead(SOIL_SENSOR_PIN);
 
-  percent = map(sensorValue, DRY_THRESHOLD, WET_THRESHOLD, 0, 100);
-  percent = constrain(percent, 0, 100);  // Garante que fique entre 0 e 100
+  // valores de calibração
+  int wet_value = 1300;
+  int dry_value = 4095;
+
+  // garantir que o valor esteja dentro dos limites
+  sensorValue = constrain(sensorValue, wet_value, dry_value);
+
+  // converter para porcentagem (0% seco, 100% molhado)
+  int umidade_percentual = map(sensorValue, wet_value, dry_value, 100, 0);
+  Serial.print("UMILDADE DO SOLO: ");
+  Serial.print(umidade_percentual);
+  Serial.println("%");
 
   delay(1000);
   
-  return percent;
+  return sensorValue;
 }
 
 

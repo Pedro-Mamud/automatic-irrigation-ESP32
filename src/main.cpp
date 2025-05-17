@@ -16,7 +16,7 @@
 #include "SoilMoisture.hpp"
 #include "pumpWater.hpp"
 
-DHTesp dht;
+//DHTesp dht;
 
 void setup() {
   Serial.begin(9600);
@@ -24,7 +24,7 @@ void setup() {
 
   // Pump water
   pinMode(PUMP_PIN, OUTPUT);
-  digitalWrite(PUMP_PIN, LOW);  // Bomba desligada inicialmente
+  digitalWrite(PUMP_PIN, HIGH);  // Bomba desligada inicialmente
 
   // DHT11 Sensor
   dht.setup(DHT_PIN, DHTesp::DHT11); //initial setup for DHT11
@@ -34,10 +34,11 @@ void setup() {
 }
 
 void loop() {
-  //ReadMoisture(); //soil moisture
   handlePump(); // handling the pump
-
+  delay(2000);
   ReadTemperature(); // read enviroment temperature
   ReadHumidity(); // read enviroment Humidity
   
 }
+
+

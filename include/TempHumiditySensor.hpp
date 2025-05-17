@@ -3,15 +3,17 @@
 
 #include <DHTesp.h>
 // consedering that we will use DHT11
+DHTesp dht;
 
-#define DHT_PIN 2
+
+#define DHT_PIN 5
 
 void ReadHumidity() { 
     float humidity = dht.getHumidity();
     Serial.print("Umidade: ");
     Serial.print(humidity);
     Serial.println(" %");
-    delay(1000);
+    delay(2000);
 }
 
 void ReadTemperature() {
@@ -19,7 +21,7 @@ void ReadTemperature() {
     Serial.print("Temperatura: ");
     Serial.print(temp);
     Serial.println(" °C");
-    delay(1000);
+    delay(2000);
 }
 
 void tempAndHumidity() {

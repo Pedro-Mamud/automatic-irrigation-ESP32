@@ -1,20 +1,21 @@
 #ifndef _INCLUDE_PUMP_WATER
 #define _INCLUDE_PUMP_WATER
+
 #include "SoilMoisture.hpp"
 
-#define PUMP_PIN 1
+#define PUMP_PIN 23 // PARA O DEVKIT
 
 void handlePump() {
     // Lógica para ligar/desligar a bomba
     ReadMoisture();
     
-    if (percent <= DRY_THRESHOLD) {
-        digitalWrite(PUMP_PIN, HIGH);  // Liga bomba
-        Serial.println("Solo seco → Ligando bomba...");
+    if (sensorValue <= THRESHOLD) {
+        digitalWrite(PUMP_PIN, HIGH); 
+        Serial.println("Solo seco → Bomba Desligada.");
 
-    } else if (percent >= WET_THRESHOLD) {
-        digitalWrite(PUMP_PIN, LOW);   // Desliga bomba
-        Serial.println("Solo molhado → Desligando bomba.");
+    } else if (sensorValue >= THRESHOLD) {
+        digitalWrite(PUMP_PIN, LOW);  
+        Serial.println("Solo molhado → Ativando a bomba.");
     }
 }
 
