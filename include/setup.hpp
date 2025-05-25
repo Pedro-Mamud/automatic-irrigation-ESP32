@@ -5,11 +5,15 @@
 #include "TempHumiditySensor.hpp"
 #include "SoilMoisture.hpp"
 #include "pumpWater.hpp"
+#include "wifi.hpp"
 
 void taskHandlePump(void *pvParameters);
 void taskReadTempHumidity(void *pvParameters);
 
 void set_up() {
+
+  //wifiConnect();
+
   pinMode(PUMP_PIN_C3, OUTPUT);
   digitalWrite(PUMP_PIN_C3, HIGH);
 

@@ -25,19 +25,24 @@ void ReadTemperature() {
     delay(2000);
 }
 
+float temperature = 0.0;
+float humidity = 0.0;
+
 void tempAndHumidity() {
     
     TempAndHumidity data = dht.getTempAndHumidity();
+    temperature = data.temperature;
+    humidity = data.humidity;
 
     if (isnan(data.temperature) || isnan(data.humidity)) {
         Serial.println("Falha ao ler do sensor DHT!");
     } else {
         Serial.print("Temperatura: ");
-        Serial.print(data.temperature);
+        Serial.print(temperature);
         Serial.println(" °C");
 
         Serial.print("Umidade: ");
-        Serial.print(data.humidity);
+        Serial.print(humidity);
         Serial.println(" %");
     }
 
