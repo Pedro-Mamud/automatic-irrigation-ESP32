@@ -3,14 +3,22 @@
 
 #include <Arduino.h>
 
-#define SOIL_SENSOR_PIN 4 //D4
+#define SOIL_SENSOR_PIN_DEVKIT 4 // D4
+#define SOIL_SENSOR_PIN_C3 0
 #define THRESHOLD 2000 // @TODO Change this during calibration
 
 int sensorValue = 0;
 
 
 int ReadMoisture() {
-  sensorValue = analogRead(SOIL_SENSOR_PIN);
+
+  long average = 0;
+  for(int i = 0; i <= 10; i++){
+    average += sensorValue = analogRead(SOIL_SENSOR_PIN_C3);
+    delay(10);
+  }
+  
+  sensorValue = average/10;
 
   // valores de calibração
   int wet_value = 1300;
@@ -25,11 +33,9 @@ int ReadMoisture() {
   Serial.print(umidade_percentual);
   Serial.println("%");
 
-  delay(1000);
+  delay(500);
   
   return sensorValue;
 }
-
-
 
 #endif //_INCLUDE_TEMP_HUMIDITY_SENSOR_

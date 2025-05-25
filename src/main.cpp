@@ -10,35 +10,28 @@
  * Date: 10/05/2025
  */
 
-
-#include <Arduino.h>
-#include "TempHumiditySensor.hpp"
-#include "SoilMoisture.hpp"
-#include "pumpWater.hpp"
-
-//DHTesp dht;
+#include "setup.hpp"
 
 void setup() {
   Serial.begin(9600);
-  delay(1000);  // Aguarda inicialização da serial
+  delay(1000); 
 
-  // Pump water
-  pinMode(PUMP_PIN, OUTPUT);
-  digitalWrite(PUMP_PIN, HIGH);  // Bomba desligada inicialmente
-
-  // DHT11 Sensor
-  dht.setup(DHT_PIN, DHTesp::DHT11); //initial setup for DHT11
-
-  // Moisture Sensor
-  analogSetAttenuation(ADC_11db);  // set the ADC attenuation to 11 dB (up to ~3.3V input
+  set_up();
 }
 
-void loop() {
-  handlePump(); // handling the pump
-  delay(2000);
-  ReadTemperature(); // read enviroment temperature
-  ReadHumidity(); // read enviroment Humidity
-  
+void loop() {}
+
+// ===================== TASKS ========================
+
+void taskHandlePump(void *pvParameters) {
+  while (true) {
+    handlePump(); 
+  }
 }
 
-
+void taskReadTempHumidity(void *pvParameters) {
+  while (true) {
+    tempAndHumidity();  
+    vTaskDelay(pdMS_TO_TICKS(2000)); // Espera 2s antes de próxima leitura
+  }
+}

@@ -6,7 +6,8 @@
 DHTesp dht;
 
 
-#define DHT_PIN 5
+#define DHT_PIN_ESP32 5
+#define DHT_PIN_C3 1
 
 void ReadHumidity() { 
     float humidity = dht.getHumidity();
