@@ -2,6 +2,7 @@
 #define _INCLUDE_SOIL_MOISTURE_
 
 #include <Arduino.h>
+#include "display.hpp"
 
 #define SOIL_SENSOR_PIN_DEVKIT 4 // D4
 #define SOIL_SENSOR_PIN_C3 0
@@ -29,6 +30,15 @@ int ReadMoisture() {
 
   // converter para porcentagem (0% seco, 100% molhado)
   int umidade_percentual = map(sensorValue, wet_value, dry_value, 100, 0);
+
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Umidade do solo: ");
+  lcd.setCursor(0,1);
+  lcd.print(umidade_percentual);
+  lcd.print("%");
+  delay(1000);
+
   Serial.print("UMILDADE DO SOLO: ");
   Serial.print(umidade_percentual);
   Serial.println("%");

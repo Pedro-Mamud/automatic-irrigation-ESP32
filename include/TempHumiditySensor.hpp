@@ -2,6 +2,7 @@
 #define _INCLUDE_TEMP_HUMIDITY_SENSOR_
 
 #include <DHTesp.h>
+#include "display.hpp"
 // consedering that we will use DHT11
 DHTesp dht;
 
@@ -11,6 +12,12 @@ DHTesp dht;
 
 void ReadHumidity() { 
     float humidity = dht.getHumidity();
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("Umidade: ");
+    lcd.print(humidity);
+    lcd.print("%");
+    delay(1000);
     Serial.print("Umidade: ");
     Serial.print(humidity);
     Serial.println(" %");
@@ -19,6 +26,12 @@ void ReadHumidity() {
 
 void ReadTemperature() {
     float temp = dht.getTemperature();
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("temperature: ");
+    lcd.print(temp);
+    lcd.print(" °C");
+    delay(1000);
     Serial.print("Temperatura: ");
     Serial.print(temp);
     Serial.println(" °C");
@@ -37,21 +50,32 @@ void tempAndHumidity() {
     if (isnan(data.temperature) || isnan(data.humidity)) {
         Serial.println("Falha ao ler do sensor DHT!");
     } else {
-        Serial.print("Temperatura: ");
-        Serial.print(temperature);
-        Serial.println(" °C");
+        lcd.clear();
+        lcd.setCursor(0,0);
+        lcd.print("Temperature: ");
+        lcd.setCursor(0,1);
+        lcd.print(temperature);
+        lcd.print(" °C");
+        delay(2000);
 
-        Serial.print("Umidade: ");
-        Serial.print(humidity);
-        Serial.println(" %");
+
+        // Serial.print("Temperatura: ");
+        // Serial.print(temperature);
+        // Serial.println(" °C");
+
+        lcd.clear();
+        lcd.setCursor(0,0);
+        lcd.print("Umidade: ");
+        lcd.print(humidity);
+        lcd.print("%");
+        delay(2000);
+
+        // Serial.print("Umidade: ");
+        // Serial.print(humidity);
+        // Serial.println(" %");
     }
 
     delay(2000);
 }
-
-
-//LIB CODE HERE
-
-
 
 #endif //_INCLUDE_TEMP_HUMIDITY_SENSOR_
