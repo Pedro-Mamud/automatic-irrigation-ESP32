@@ -52,10 +52,11 @@ void tempAndHumidity() {
     } else {
         lcd.clear();
         lcd.setCursor(0,0);
-        lcd.print("Temperature: ");
+        lcd.print("Temp. ambiente: ");
         lcd.setCursor(0,1);
         lcd.print(temperature);
-        lcd.print(" °C");
+        lcd.print((char)223);
+        lcd.print("C");
         delay(2000);
 
 
@@ -65,7 +66,8 @@ void tempAndHumidity() {
 
         lcd.clear();
         lcd.setCursor(0,0);
-        lcd.print("Umidade: ");
+        lcd.print("Umidade do ar: ");
+        lcd.setCursor(0,1);
         lcd.print(humidity);
         lcd.print("%");
         delay(2000);

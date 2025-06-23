@@ -8,8 +8,8 @@
 #include "wifi.hpp"
 #include "display.hpp"
 
-//void taskHandlePump(void *pvParameters);
-//void taskReadTempHumidity(void *pvParameters);
+// void taskHandlePump(void *pvParameters);
+// void taskReadTempHumidity(void *pvParameters);
 
 void set_up() {
 
@@ -19,8 +19,10 @@ void set_up() {
   displayConfig();
   lcd.clear();
   lcd.setCursor(0,0);
-  lcd.print("Bienvenue mon ami!");
-  delay(2000);
+  lcd.print("Ahla wa sahla!");
+  lcd.setCursor(0,1);
+  lcd.print("Salaamu aleikum");
+  delay(5000);
 
   pinMode(PUMP_PIN_C3, OUTPUT);
   digitalWrite(PUMP_PIN_C3, HIGH);
